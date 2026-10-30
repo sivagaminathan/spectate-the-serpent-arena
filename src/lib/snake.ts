@@ -38,7 +38,7 @@ export function placeFood(snake: Point[], width: number, height: number, rng: Rn
     for (let x = 0; x < width; x++)
       if (!snake.some((s) => s.x === x && s.y === y)) free.push({ x, y });
   if (free.length === 0) return { x: -1, y: -1 };
-  return free[Math.floor(rng() * free.length)];
+  return free[Math.floor(rng() * free.length)]!;
 }
 
 export function createGame(
@@ -75,7 +75,7 @@ export function changeDirection(state: GameState, dir: Direction): GameState {
 
 /** Next head position, or null if it hits a wall in walls mode. */
 export function nextHead(state: GameState, dir: Direction): Point | null {
-  const head = state.snake[0];
+  const head = state.snake[0]!;
   const v = VECTORS[dir];
   let x = head.x + v.x;
   let y = head.y + v.y;
@@ -132,5 +132,5 @@ export function botDirection(state: GameState): Direction {
   };
   const safe = DIRECTIONS.filter((d) => isSafe(state, d));
   if (safe.length === 0) return state.direction;
-  return safe.sort((a, b) => dist(nextHead(state, a)!) - dist(nextHead(state, b)!))[0];
+  return safe.sort((a, b) => dist(nextHead(state, a)!) - dist(nextHead(state, b)!))[0]!;
 }
