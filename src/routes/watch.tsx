@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { api, type LivePlayer } from "@/lib/api";
-import { botDirection, changeDirection, createGame, step, type GameState } from "@/lib/snake";
+import { DIRECTIONS, botDirection, changeDirection, createGame, step, type GameState } from "@/lib/snake";
 import { Board } from "@/components/Board";
 
 export const Route = createFileRoute("/watch")({
@@ -29,7 +29,7 @@ function LiveGame({ player, size }: { player: LivePlayer; size: number }) {
       setGame((g) => {
         if (!g.alive) return createGame(player.mode, 20, 20, rng);
         // Occasionally make a "human" mistake so games end eventually.
-        const d = rng() < 0.03 ? (["up", "down", "left", "right"] as const)[Math.floor(rng() * 4)] : botDirection(g);
+        const d = rng() < 0.03 ? DIRECTIONS[Math.floor(rng() * 4)]! : botDirection(g);
         return step(changeDirection(g, d), rng);
       });
     }, 120);
