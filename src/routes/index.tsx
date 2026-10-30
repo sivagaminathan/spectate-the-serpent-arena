@@ -81,10 +81,10 @@ function Play() {
         {(!running || !game.alive) && (
           <div className="overlay">
             <p className="font-display text-2xl text-primary glow">
-              {!game.alive ? "GAME OVER" : game.score === 0 && game.snake.length === 3 ? "READY?" : "PAUSED"}
+              {!game.alive ? "GAME OVER" : "READY?"}
             </p>
             {msg && <p className="text-sm text-accent">{msg} {!user && <Link to="/login" className="underline">Log in</Link>}</p>}
-            <button className="btn-primary" onClick={() => (game.alive && game.score + game.snake.length > 3 && !running ? setRunning(true) : restart(mode))}>
+            <button className="btn-primary" onClick={() => (game.alive ? setRunning(true) : restart(mode))}>
               {!game.alive ? "Play again" : "Start"}
             </button>
           </div>
